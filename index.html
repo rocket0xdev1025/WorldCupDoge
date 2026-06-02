@@ -263,13 +263,6 @@
     margin:0;
   }
 
-  /* NARRATIVE */
-  #narrative{
-    padding:100px 60px;
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:80px;align-items:center;
-    max-width:1300px;margin:0 auto;
-  }
   .narrative-text p{
     font-size:1.1rem;line-height:1.9;
     color:rgba(245,240,232,.7);
@@ -496,8 +489,6 @@
   @media(max-width:900px){
     nav{padding:16px 24px;}
     .nav-links{display:none;}
-    #narrative{grid-template-columns:1fr;padding:60px 24px;gap:40px;}
-    #howtobuy,#matches,#why,footer{padding:60px 24px;}
     .steps-grid{grid-template-columns:1fr 1fr;gap:32px;}
     .steps-grid::before{display:none;}
     .why-grid{grid-template-columns:1fr;}
@@ -1050,6 +1041,130 @@
     .watch-channels{justify-content:center;}
   }
 
+  /* ===== IMAGE + SECTION COMBOS (one image per section) ===== */
+  .sec-img {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,.15);
+    background: var(--gray);
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+    transition: transform .5s cubic-bezier(.23,1,.32,1), border-color .3s;
+  }
+  .sec-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .7s cubic-bezier(.2,1,.2,1);
+  }
+  .sec-img:hover {
+    border-color: rgba(201,168,76,.45);
+    transform: translateY(-4px);
+  }
+  .sec-img:hover img {
+    transform: scale(1.08);
+  }
+  .sec-img .img-cap {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 18px 20px;
+    background: linear-gradient(to top, rgba(5,5,5,.92), rgba(5,5,5,.65) 60%, transparent);
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.05rem;
+    letter-spacing: .03em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-img .img-cap::before {
+    content: '';
+    width: 22px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  /* 1. NARRATIVE — split story + image */
+  #narrative {
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .narrative-text { padding-right: 10px; }
+  .narrative-img { aspect-ratio: 4 / 3.2; min-height: 320px; }
+
+  /* 2. HOW TO BUY — steps + powerful visual */
+  #howtobuy { padding: 100px 60px; }
+  .htb-inner { max-width: 1300px; margin: 0 auto; }
+  .buy-layout {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 50px;
+    align-items: center;
+    margin-top: 42px;
+  }
+  .buy-visual { aspect-ratio: 16 / 13; }
+  .buy-visual .img-cap { font-size: .95rem; padding: 14px 18px; }
+
+  /* 3. MATCHES — bracket + tournament energy image */
+  #matches { background: var(--dark2); padding: 100px 60px; }
+  .matches-inner { max-width: 1300px; margin: 0 auto; }
+  .matches-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+    margin-top: 42px;
+  }
+  .match-visual { aspect-ratio: 4 / 3; }
+  .match-visual .img-cap { font-size: 1.15rem; }
+
+  /* 4. WHY — big statement image + reason cards */
+  #why { padding: 100px 60px; }
+  .why-inner { max-width: 1300px; margin: 0 auto; }
+  .why-visual {
+    margin: 42px 0 28px;
+    aspect-ratio: 16 / 6.8;
+  }
+  .why-visual .img-cap {
+    font-size: 1.35rem;
+    padding: 22px 28px;
+  }
+
+  /* 5. TEAMS / NATIONS — celebratory image + full roster */
+  #teams { padding: 100px 60px; position: relative; z-index: 1; }
+  .teams-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 42px;
+    align-items: start;
+    margin-top: 32px;
+  }
+  .nations-visual { aspect-ratio: 5 / 4; }
+  .nations-visual .img-cap { font-size: 1.1rem; }
+
+  /* Responsive for all combos */
+  @media(max-width:980px){
+    #narrative { grid-template-columns: 1fr; gap: 40px; padding: 70px 24px; }
+    .narrative-text { padding-right: 0; }
+    .narrative-img { aspect-ratio: 16 / 10; }
+
+    .buy-layout, .matches-layout, .teams-layout { grid-template-columns: 1fr; gap: 32px; }
+    .buy-visual, .match-visual, .nations-visual { aspect-ratio: 16 / 10; }
+
+    #howtobuy, #matches, #why, #teams { padding: 70px 24px; }
+
+    .why-visual { aspect-ratio: 16 / 9; margin: 32px 0 20px; }
+  }
+  @media(max-width:600px){
+    .sec-img .img-cap { font-size: .9rem; padding: 14px 16px; }
+    .why-visual .img-cap { font-size: 1.1rem; }
+  }
+
 </style>
 </head>
 <body>
@@ -1071,7 +1186,7 @@
     <li><a href="#why">Why WCDOGE</a></li>
     <li><a href="https://www.livesoccertv.com/competitions/international/world-cup/" target="_blank" style="color:#e63946!important;"><i class="fa-solid fa-circle-play"></i> Watch</a></li>
   </ul>
-  <a class="nav-cta" href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0xcomingsoon" target="_blank"><i class="fa-solid fa-bolt"></i> Buy $WCDOGE</a>
+  <a class="nav-cta" href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x711720a35309fe941f46C23268Db910AECd2A92E" target="_blank"><i class="fa-solid fa-bolt"></i> Buy $WCDOGE</a>
 </nav>
 
 <!-- HERO -->
@@ -1083,14 +1198,14 @@
   <p class="hero-sub" id="heroSub">Official Mascot of the FIFA World Cup Tournament</p>
   <p class="hero-tagline" id="heroTagline">"FIFA World Cup Now Written Onchain."</p>
   <div class="hero-buttons" id="heroBtns">
-    <a class="btn-primary" href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0xcomingsoon" target="_blank"><i class="fa-solid fa-rocket"></i> Buy Now</a>
-    <a class="btn-secondary" href="https://dexscreener.com/ethereum/0xcomingsoon" target="_blank"><i class="fa-solid fa-chart-line"></i> Dexscreener</a>
+    <a class="btn-primary" href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x711720a35309fe941f46C23268Db910AECd2A92E" target="_blank"><i class="fa-solid fa-rocket"></i> Buy Now</a>
+    <a class="btn-secondary" href="https://dexscreener.com/ethereum/0x711720a35309fe941f46C23268Db910AECd2A92E" target="_blank"><i class="fa-solid fa-chart-line"></i> Dexscreener</a>
     <a class="btn-green" href="https://t.me/WCDOGE26" target="_blank"><i class="fa-brands fa-telegram"></i> Join Community</a>
     <a class="btn-watch" href="https://www.livesoccertv.com/competitions/international/world-cup/" target="_blank"><i class="fa-solid fa-circle-play"></i> Watch Now</a>
   </div>
   <div class="ca-box" id="caBox">
     <span class="ca-label"><i class="fa-solid fa-file-contract"></i>&nbsp; Contract</span>
-    <span class="ca-address" id="caAddr">0xcomingsoon</span>
+    <span class="ca-address" id="caAddr">0x711720a35309fe941f46C23268Db910AECd2A92E</span>
     <button class="ca-copy" onclick="copyCA()" id="caBtn"><i class="fa-regular fa-copy"></i> Copy</button>
   </div>
   </div><div class="scroll-hint" id="scrollHint">
@@ -1107,74 +1222,84 @@
 
 <!-- NARRATIVE -->
 <section id="narrative">
-  <div class="narrative-left">
+  <div class="narrative-text">
     <p class="section-label">The Story</p>
     <h2 class="section-title">Football<br/><span class="accent">On Chain</span></h2>
-    <div class="narrative-text" style="margin-top:32px;">
+    <div style="margin-top:32px;">
       <p>Football is the world’s most watched spectacle, uniting billions every four years across every border, language, and culture.</p>
       <p>Nations clash, rivalries ignite, and history is written in 90 minutes. Now, that energy lives on the blockchain every match, every goal, every moment immortalized as $WCDOGE, brought to life by a playful Shiba Inu mascot celebrating football fun on-chain.</p>
     </div>
+    <blockquote class="narrative-quote" style="margin-top:32px;">"Fifa world cup game now written on chain."</blockquote>
   </div>
-  <div class="narrative-right">
-    <blockquote class="narrative-quote">"Fifa world cup game now written on chain."</blockquote>
-    <div class="stat-grid" style="margin-top:40px;">
-      <div class="stat-card">
-        <div class="stat-num">5B+</div>
-        <div class="stat-desc">Fans worldwide</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">48</div>
-        <div class="stat-desc">Teams in 2026</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">3</div>
-        <div class="stat-desc">Host nations</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">420,000T</div>
-        <div class="stat-desc">Total supply cap</div>
-      </div>
+
+  <div class="narrative-img sec-img">
+    <img src="assets/img/1.png" alt="World Cup Doge — The Mascot" />
+    <div class="img-cap">THE MASCOT</div>
+  </div>
+
+  <div class="stat-grid" style="grid-column:1/-1;margin-top:48px;">
+    <div class="stat-card">
+      <div class="stat-num">5B+</div>
+      <div class="stat-desc">Fans worldwide</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">48</div>
+      <div class="stat-desc">Teams in 2026</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3</div>
+      <div class="stat-desc">Host nations</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">420,000T</div>
+      <div class="stat-desc">Total supply cap</div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-
 <!-- HOW TO BUY -->
 <section id="howtobuy">
   <div class="htb-inner">
     <p class="section-label">Get Started</p>
     <h2 class="section-title">How to <span class="accent">Buy</span></h2>
-    <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-title">Create Wallet</div>
-        <div class="step-desc">Download Trust Wallet or MetaMask and create a new wallet. Save your seed phrase securely.</div>
+
+    <div class="buy-layout">
+      <div>
+        <div class="steps-grid">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-title">Create Wallet</div>
+            <div class="step-desc">Download Trust Wallet or MetaMask and create a new wallet. Save your seed phrase securely.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-title">Fund with ETH</div>
+            <div class="step-desc">Purchase ETH from any exchange (Binance, Coinbase) and transfer it to your wallet.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-title">Connect to DEX</div>
+            <div class="step-desc">Visit Uniswap and connect your wallet to the ETH Smart Chain network.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-title">Paste Contract</div>
+            <div class="step-desc">In the swap interface, paste the $WCDOGE contract address to find the token.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">05</div>
+            <div class="step-title">Swap for $WCDOGE</div>
+            <div class="step-desc">Enter the amount of ETH, confirm the swap, and welcome to the WCDOGE community.</div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:42px;">
+          <a class="btn-primary" href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x711720a35309fe941f46C23268Db910AECd2A92E" target="_blank" style="display:inline-flex;"><i class="fa-solid fa-arrow-right-arrow-left"></i>&nbsp; Swap on Uniswap</a>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-title">Fund with ETH</div>
-        <div class="step-desc">Purchase ETH from any exchange (Binance, Coinbase) and transfer it to your wallet.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-title">Connect to DEX</div>
-        <div class="step-desc">Visit Uniswap and connect your wallet to the ETH Smart Chain network.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-title">Paste Contract</div>
-        <div class="step-desc">In the swap interface, paste the $WCDOGE contract address to find the token.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">05</div>
-        <div class="step-title">Swap for $WCDOGE</div>
-        <div class="step-desc">Enter the amount of ETH, confirm the swap, and welcome to the WCDOGE community.</div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:56px;">
-      <a class="btn-primary" href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0xcomingsoon" target="_blank" style="display:inline-flex;"><i class="fa-solid fa-arrow-right-arrow-left"></i>&nbsp; Swap on Uniswap</a>
+
+        <img src="assets/img/2.png" alt="World Cup Doge — Your Ticket In" />
     </div>
   </div>
 </section>
@@ -1186,7 +1311,15 @@
   <div class="matches-inner">
     <p class="section-label"><i class="fa-solid fa-trophy"></i>&nbsp; World Cup 2026</p>
     <h2 class="section-title">Tournament <span class="accent">Bracket</span></h2>
-    <div class="bracket" id="bracket"></div>
+
+    <div class="matches-layout">
+      <div class="bracket" id="bracket"></div>
+
+      <div class="match-visual sec-img">
+        <img src="assets/img/3.png" alt="World Cup Doge — Tournament Energy" />
+        <div class="img-cap">WORLD CUP ENERGY</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1322,16 +1455,25 @@
     <p class="section-label"><i class="fa-solid fa-earth-americas"></i>&nbsp; Full 48-Team Field</p>
     <h2 class="section-title">The <span class="accent">Nations</span></h2>
 
-    <div class="fix-tabs" style="display:flex;gap:10px;margin-top:36px;flex-wrap:wrap;" id="confTabs">
-      <button class="fix-tab active" onclick="showConf('all')">All 48</button>
-      <button class="fix-tab" onclick="showConf('UEFA')">Europe</button>
-      <button class="fix-tab" onclick="showConf('CONMEBOL')">South America</button>
-      <button class="fix-tab" onclick="showConf('CAF')">Africa</button>
-      <button class="fix-tab" onclick="showConf('AFC')">Asia</button>
-      <button class="fix-tab" onclick="showConf('CONCACAF')">CONCACAF</button>
-    </div>
+    <div class="teams-layout">
+      <div class="nations-visual sec-img">
+        <img src="assets/img/5.png" alt="World Cup Doge — The Pack" />
+        <div class="img-cap">THE PACK</div>
+      </div>
 
-    <div id="teamsGrid" style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;"></div>
+      <div>
+        <div class="fix-tabs" style="display:flex;gap:10px;margin-top:4px;flex-wrap:wrap;" id="confTabs">
+          <button class="fix-tab active" onclick="showConf('all')">All 48</button>
+          <button class="fix-tab" onclick="showConf('UEFA')">Europe</button>
+          <button class="fix-tab" onclick="showConf('CONMEBOL')">South America</button>
+          <button class="fix-tab" onclick="showConf('CAF')">Africa</button>
+          <button class="fix-tab" onclick="showConf('AFC')">Asia</button>
+          <button class="fix-tab" onclick="showConf('CONCACAF')">CONCACAF</button>
+        </div>
+
+        <div id="teamsGrid" style="margin-top:28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;"></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1341,6 +1483,12 @@
   <div class="why-inner">
     <p class="section-label">The Case</p>
     <h2 class="section-title">Why <span class="accent">$WCDOGE?</span></h2>
+
+    <div class="why-visual sec-img">
+      <img src="assets/img/4.png" alt="World Cup Doge — The Vision" />
+      <div class="img-cap">THE VISION</div>
+    </div>
+
     <div class="why-grid">
       <div class="why-card">
         <div class="why-icon"><i class="fa-solid fa-globe"></i></div>
@@ -1350,7 +1498,7 @@
       <div class="why-card">
         <div class="why-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
         <div class="why-title">Time-Based Hype Cycles</div>
-        <div class="why-desc">The World Cup creates predictable waves of global hype �?from qualifiers to knockout stages �?each moment a catalyst for community growth.</div>
+        <div class="why-desc">The World Cup creates predictable waves of global hype — from qualifiers to knockout stages — each moment a catalyst for community growth.</div>
       </div>
       <div class="why-card">
         <div class="why-icon"><i class="fa-solid fa-users"></i></div>
@@ -1376,20 +1524,20 @@
       <div class="footer-socials">
         <a class="social-btn" href="https://x.com/WCDOGE26" target="_blank" title="X / Twitter"><i class="fa-brands fa-x-twitter"></i></a>
         <a class="social-btn" href="https://t.me/WCDOGE26" target="_blank" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
-<!--        <a class="social-btn" href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0xcomingsoon" target="_blank" title="Uniswap"><i class="fa-solid fa-arrow-right-arrow-left"></i></a>-->
+<!--        <a class="social-btn" href="https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x711720a35309fe941f46C23268Db910AECd2A92E" target="_blank" title="Uniswap"><i class="fa-solid fa-arrow-right-arrow-left"></i></a>-->
       </div>
     </div>
     <div class="footer-ca">
       <span class="footer-ca-label"><i class="fa-solid fa-file-contract"></i>&nbsp; Contract Address</span>
-      <span class="footer-ca-addr">0xcomingsoon</span>
+      <span class="footer-ca-addr">0x711720a35309fe941f46C23268Db910AECd2A92E</span>
       <button class="ca-copy" onclick="copyCA()" style="cursor:none;"><i class="fa-regular fa-copy"></i> Copy</button>
     </div>
     <div class="footer-bottom">
       <div style="display:flex;gap:16px;">
         <a href="https://x.com/WCDOGE26" target="_blank" style="color:var(--text-dim);text-decoration:none;font-size:.75rem;">Twitter / X</a>
         <a href="https://t.me/WCDOGE26" target="_blank" style="color:var(--text-dim);text-decoration:none;font-size:.75rem;">Telegram</a>
-        <a href="https://www.dextools.io/app/en/ether/pair-explorer/0xcomingsoon" target="_blank" style="color:var(--text-dim);text-decoration:none;font-size:.75rem;">Dextools</a>
-        <a href="https://dexscreener.com/ethereum/0xcomingsoon" target="_blank" style="color:var(--text-dim);text-decoration:none;font-size:.75rem;">Dexscreener</a>
+        <a href="https://www.dextools.io/app/en/ether/pair-explorer/0x711720a35309fe941f46C23268Db910AECd2A92E" target="_blank" style="color:var(--text-dim);text-decoration:none;font-size:.75rem;">Dextools</a>
+        <a href="https://dexscreener.com/ethereum/0x711720a35309fe941f46C23268Db910AECd2A92E" target="_blank" style="color:var(--text-dim);text-decoration:none;font-size:.75rem;">Dexscreener</a>
       </div>
     </div>
   </div>
@@ -1568,7 +1716,7 @@ goalWords.forEach((word,i)=>{
 
 // ─── COPY CA ───
 function copyCA(){
-  const addr='0xcomingsoon';
+  const addr='0x711720a35309fe941f46C23268Db910AECd2A92E';
   navigator.clipboard.writeText(addr).then(()=>{
     document.querySelectorAll('.ca-copy,[onclick="copyCA()"]').forEach(b=>{
       b.innerHTML='<i class="fa-solid fa-check"></i> Copied!';
